@@ -34,32 +34,34 @@ def show(message):
     return (f"{'*' * (len(message)//2)}\n{message}\n{'*' * (len(message)//2)}\n")
 
 self_conta = Conta()
-while True:
-    opt = input(show("a - Depositar.\nb - Consultar Extrato.\nc - Sacar.\nd - Sair.")).lower()
-    match opt:
-        case "a":
-            try: 
-                value = float(input(show("Insira o valor a ser depositado:")))
-                self_conta.dep(value)
-                continue
-            except:
-                print(show("Valor inválido."))
+
+if __name__ == "__main__":
+    while True:
+        opt = input(show("a - Depositar.\nb - Consultar Extrato.\nc - Sacar.\nd - Sair.")).lower()
+        match opt:
+            case "a":
+                try: 
+                    value = float(input(show("Insira o valor a ser depositado:")))
+                    self_conta.dep(value)
+                    continue
+                except:
+                    print(show("Valor inválido."))
+                    input("Aperte enter para continuar")
+                    continue
+            case "b":
+                print(show(f"Valor em conta: R${self_conta.ext()} ."))
                 input("Aperte enter para continuar")
                 continue
-        case "b":
-            print(show(f"Valor em conta: R${self_conta.ext()} ."))
-            input("Aperte enter para continuar")
-            continue
-        case "c":
-            try: 
-                value = float(input(show("Insira o valor a ser sacado:")))
-                self_conta.saq(value)
+            case "c":
+                try: 
+                    value = float(input(show("Insira o valor a ser sacado:")))
+                    self_conta.saq(value)
+                    continue
+                except:
+                    print(show(f"Valor inválido, Você pode sacar 1500 reais por dia divididos em 3 saques. Você sacou {self_conta._saq_count} vez(es), e possui R${self_conta._balance}."))
+                    input("Aperte enter para continuar")
+                    continue
+            case "d":
+                break
+            case _:
                 continue
-            except:
-                print(show(f"Valor inválido, Você pode sacar 1500 reais por dia divididos em 3 saques. Você sacou {self_conta._saq_count} vez(es), e possui R${self_conta._balance}."))
-                input("Aperte enter para continuar")
-                continue
-        case "d":
-            break
-        case _:
-            continue
